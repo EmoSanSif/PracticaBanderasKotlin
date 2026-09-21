@@ -28,21 +28,43 @@ class MainActivity : ComponentActivity() {
         setContent {
             BanderasTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaNombrePais(Modifier.padding(innerPadding))
+                    BanderaFrancia(Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 @Composable
-fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
+fun BanderaFrancia(modifier: Modifier = Modifier) {
+    Row(modifier = modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .background(Color.Blue)
+        )
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+
+        }
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .background(Color.Red)
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaNombrePaisPreview() {
+fun BanderaFranciaPreview() {
     Surface {
-        BanderaNombrePais(modifier = Modifier.fillMaxSize())
+        BanderaFrancia(modifier = Modifier.fillMaxSize())
     }
 }

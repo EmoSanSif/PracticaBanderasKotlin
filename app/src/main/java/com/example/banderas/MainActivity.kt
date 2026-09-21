@@ -52,7 +52,7 @@ fun BanderaNombrePais(modifier: Modifier = Modifier) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.escudo_argentina),
-                contentDescription = "Escudo nacional",
+                contentDescription = "Escudo nacional de argentina",
                 modifier = Modifier.size(160.dp)
             )
         }

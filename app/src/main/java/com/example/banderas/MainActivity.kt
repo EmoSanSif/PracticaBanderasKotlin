@@ -28,21 +28,48 @@ class MainActivity : ComponentActivity() {
         setContent {
             BanderasTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaNombrePais(Modifier.padding(innerPadding))
+                    BanderaUSA(Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 @Composable
-fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
+fun BanderaUSA(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize()) {
+            repeat(13) { index ->
+                Box(
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .background(if (index % 2 == 0) Color(0xFFB22234) else Color.White)
+                )
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.4f)
+                .fillMaxHeight(0.54f)
+                .background(Color(0xFF3C3B6E))
+        )
+        // Aqui se agregan las estrellas con Canvas o un grid de Shapes pequenos
+        // Vamos a intentarlo con una imagen
+        Image(
+            painter = painterResource(id = R.drawable.estrellas_usa),
+            contentDescription = "Estrellas",
+            modifier = Modifier.size(220.dp)
+        )
+
+    }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaNombrePaisPreview() {
+fun BanderaUSAPreview() {
     Surface {
-        BanderaNombrePais(modifier = Modifier.fillMaxSize())
+        BanderaUSA(modifier = Modifier.fillMaxSize())
     }
 }

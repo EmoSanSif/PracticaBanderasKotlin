@@ -28,21 +28,47 @@ class MainActivity : ComponentActivity() {
         setContent {
             BanderasTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaNombrePais(Modifier.padding(innerPadding))
+                    BanderaEspana(Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 @Composable
-fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
+fun BanderaEspana(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .background(Color.Red)
+        )
+        Box(
+            modifier = Modifier
+                .weight(2f)
+                .fillMaxWidth()
+                .background(Color.Yellow),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.escudo_espana),
+                contentDescription = "Escudo nacional de Espana",
+                modifier = Modifier.size(160.dp).align(alignment = let { Alignment.CenterStart })
+            )
+        }
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .background(Color.Red)
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaNombrePaisPreview() {
+fun BanderaEspanaPreview() {
     Surface {
-        BanderaNombrePais(modifier = Modifier.fillMaxSize())
+        BanderaEspana(modifier = Modifier.fillMaxSize())
     }
 }

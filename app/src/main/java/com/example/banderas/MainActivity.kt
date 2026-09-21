@@ -36,7 +36,33 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
+    Column(modifier = modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .background(Color(0xFF74ACDF))
+        )
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.escudo_argentina),
+                contentDescription = "Escudo nacional",
+                modifier = Modifier.size(160.dp)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .background(Color(0xFF74ACDF))
+        )
+    }
 }
 
 @Preview(showBackground = true)

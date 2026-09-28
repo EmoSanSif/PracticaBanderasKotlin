@@ -75,11 +75,11 @@ fun BoxConstraint() {
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Icon(imageVector = Icons.Default.Star, // 👈 Usamos el ícono de estrella por defecto
+        Icon(imageVector = Icons.Default.Star,
             contentDescription = "Estrella de la bandera",
-            tint = Color.White, // Color de la estrella (blanco para la bandera)
+            tint = Color.White,
             modifier = Modifier
-                .size(120.dp) // Tamaño de la estrella (más pequeña que el círculo)
+                .size(120.dp)
                 .constrainAs(ImgBox) {
             top.linkTo(Toprow.top)
             bottom.linkTo(Toprow.bottom)

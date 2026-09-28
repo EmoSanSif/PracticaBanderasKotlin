@@ -77,11 +77,11 @@ fun BoxConstraint() {
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Image(painter = painterResource(id = R.drawable.escudo_espana),
+        Image(painter = painterResource(id = R.drawable.escudo_mexico),
             contentDescription = "Escudo Nacional de Espana",
-            contentScale = ContentScale.Crop, // Ajusta la imagen para que llene el círculo sin deformarse
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(140.dp) // Tamaño del círculo (ancho y alto iguales)
+                .size(140.dp)
                 .constrainAs(ImgBox) {
             top.linkTo(Midrow.top)
             bottom.linkTo(Midrow.bottom)

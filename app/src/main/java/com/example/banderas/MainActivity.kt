@@ -20,11 +20,14 @@ import com.example.banderas.ui.theme.BanderasTheme
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 
 
 class MainActivity : ComponentActivity() {
@@ -45,38 +48,43 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val (Toprow, Midrow, Botrow, ImgBox) = createRefs()
         val topGuide = createGuidelineFromTop(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.azul_chile)).constrainAs(Toprow) {
             top.linkTo(parent.top)
+            bottom.linkTo(Botrow.top)
+            start.linkTo(parent.start)
+            end.linkTo(Midrow.start)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Midrow) {
+            top.linkTo(parent.top)
+            bottom.linkTo(Botrow.top)
+            start.linkTo(Toprow.end)
+            end.linkTo(parent.end)
+            width = Dimension.percent(0.618f)
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_chile)).constrainAs(Botrow) {
+            top.linkTo(Toprow.bottom)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
+        Icon(imageVector = Icons.Default.Star, // 👈 Usamos el ícono de estrella por defecto
+            contentDescription = "Estrella de la bandera",
+            tint = Color.White, // Color de la estrella (blanco para la bandera)
+            modifier = Modifier
+                .size(120.dp) // Tamaño de la estrella (más pequeña que el círculo)
+                .constrainAs(ImgBox) {
+            top.linkTo(Toprow.top)
+            bottom.linkTo(Toprow.bottom)
+            start.linkTo(Toprow.start)
+            end.linkTo(Toprow.end)
         })
     }
 }

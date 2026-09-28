@@ -8,8 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cafe">#6E3E2F</color>
-    <color name="verde_mexico">#006341</color>
-    <color name="rojo_mexico">#CE1126</color>
-
+    <color name="verde_italia">#009246</color>
+    <color name="rojo_italia">#CE2B37</color>
 
 </resources>

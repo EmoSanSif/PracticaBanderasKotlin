@@ -45,38 +45,32 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val (Topcolumn, Midcolumn, Botcolumn,) = createRefs()
         val topGuide = createGuidelineFromTop(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(Color.Black).constrainAs(Topcolumn) {
             top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
+            bottom.linkTo(Midcolumn.top)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_alemania)).constrainAs(Midcolumn) {
+            top.linkTo(Topcolumn.bottom)
+            bottom.linkTo(Botcolumn.top)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.amarillo_alemania)).constrainAs(Botcolumn) {
+            top.linkTo(Midcolumn.bottom)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
         })
     }
 }

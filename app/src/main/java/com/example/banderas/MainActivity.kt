@@ -73,7 +73,7 @@ fun BoxConstraint() {
             end.linkTo(BackGround.end)
 
         })
-        Box(modifier = Modifier.size(120.dp).clip(CircleShape).background(colorResource(id = R.color.azul_brasil)).constrainAs(Circle) {
+        Box(modifier = Modifier.size(140.dp).clip(CircleShape).background(colorResource(id = R.color.azul_brasil)).constrainAs(Circle) {
             top.linkTo(Romboid.top)
             bottom.linkTo(Romboid.bottom)
             start.linkTo(Romboid.start)

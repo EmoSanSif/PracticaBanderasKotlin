@@ -45,10 +45,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val (Izqcolumn, Cencolumn, Dercolumn,) = createRefs()
         val topGuide = createGuidelineFromTop(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.azul_francia)).constrainAs(Izqcolumn) {
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
@@ -64,7 +64,7 @@ fun BoxConstraint() {
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_francia)).constrainAs(Dercolumn) {
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             start.linkTo(Cencolumn.end)
@@ -72,11 +72,6 @@ fun BoxConstraint() {
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
-        })
+
     }
 }

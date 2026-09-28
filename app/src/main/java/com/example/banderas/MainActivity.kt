@@ -19,6 +19,12 @@ import androidx.core.view.WindowCompat.enableEdgeToEdge
 import com.example.banderas.ui.theme.BanderasTheme
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 
 
 class MainActivity : ComponentActivity() {
@@ -27,22 +33,50 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BanderasTheme() {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaNombrePais(Modifier.padding(innerPadding))
+                Surface (modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                    BoxConstraint()
                 }
             }
         }
     }
 }
-@Composable
-fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
-}
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun BanderaNombrePaisPreview() {
-    Surface {
-        BanderaNombrePais(modifier = Modifier.fillMaxSize())
+fun BoxConstraint() {
+    ConstraintLayout(Modifier.fillMaxSize()) {
+        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val topGuide = createGuidelineFromTop(0.2f)
+
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(Cencolumn.start)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(Izqcolumn.end)
+            end.linkTo(Dercolumn.start)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(Cencolumn.end)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
+            top.linkTo(Cencolumn.top)
+            bottom.linkTo(Cencolumn.bottom)
+            start.linkTo(Cencolumn.start)
+            end.linkTo(Cencolumn.end)
+        })
     }
 }

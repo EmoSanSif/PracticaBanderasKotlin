@@ -20,6 +20,7 @@ import com.example.banderas.ui.theme.BanderasTheme
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
@@ -41,42 +42,42 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val RombosShape = GenericShape { size, _ ->
+    moveTo(size.width / 2f, 0f)
+    lineTo(size.width, size.height / 2f)
+    lineTo(size.width / 2f, size.height)
+    lineTo(0f, size.height / 2f)
+    close()
+}
+
+
 @Preview
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val (BackGround, Romboid, Circle) = createRefs()
         val topGuide = createGuidelineFromTop(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_brasil)).constrainAs(BackGround) {
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
+        Box(modifier = Modifier.fillMaxSize(0.75f).clip(RombosShape).background(colorResource(id = R.color.amarillo_brasil)).constrainAs(Romboid) {
+            top.linkTo(BackGround.top)
+            bottom.linkTo(BackGround.bottom)
+            start.linkTo(BackGround.start)
+            end.linkTo(BackGround.end)
+
+        })
+        Box(modifier = Modifier.size(120.dp).clip(CircleShape).background(colorResource(id = R.color.azul_brasil)).constrainAs(Circle) {
+            top.linkTo(Romboid.top)
+            bottom.linkTo(Romboid.bottom)
+            start.linkTo(Romboid.start)
+            end.linkTo(Romboid.end)
         })
     }
 }

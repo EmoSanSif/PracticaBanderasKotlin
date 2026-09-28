@@ -25,6 +25,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
 
 class MainActivity : ComponentActivity() {
@@ -45,38 +50,43 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
-        val topGuide = createGuidelineFromTop(0.2f)
+        val (Toprow, Midrow, Botrow, ImgBox) = createRefs()
+        val StartGuide = createGuidelineFromStart(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_espana)).constrainAs(Toprow) {
             top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
+            bottom.linkTo(Midrow.top)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
+        Box(modifier = Modifier.size(200.dp).background(colorResource(id = R.color.amarillo_espana)).constrainAs(Midrow) {
+            top.linkTo(Toprow.bottom)
+            bottom.linkTo(Botrow.top)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.percent(0.5f)
+        })
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_espana)).constrainAs(Botrow) {
+            top.linkTo(Midrow.bottom)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Image(painter = painterResource(id = R.drawable.escudo_espana),
+            contentDescription = "Escudo Nacional de Espana",
+            contentScale = ContentScale.Crop, // Ajusta la imagen para que llene el círculo sin deformarse
+            modifier = Modifier
+                .size(140.dp) // Tamaño del círculo (ancho y alto iguales)
+                .constrainAs(ImgBox) {
+            top.linkTo(Midrow.top)
+            bottom.linkTo(Midrow.bottom)
+            start.linkTo(StartGuide)
+
         })
     }
 }

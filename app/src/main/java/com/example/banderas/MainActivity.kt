@@ -25,6 +25,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
 
 
 class MainActivity : ComponentActivity() {
@@ -44,39 +47,73 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun BoxConstraint() {
-    ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
-        val topGuide = createGuidelineFromTop(0.2f)
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        // Creamos las referencias para las franjas y el cuadro azul
+        val (stripesRef, cantonRef) = createRefs()
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
-            end.linkTo(parent.end)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
-        })
+        // 1. Las 13 franjas de fondo
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .constrainAs(stripesRef) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        ) {
+            repeat(13) { index ->
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .background(if (index % 2 == 0) Color(0xFFB22234) else Color.White)
+                )
+            }
+        }
+
+        // 2. El cuadro azul (Canton) posicionado en la esquina superior izquierda
+        Box(
+            modifier = Modifier
+                .background(Color(0xFF3C3B6E))
+                .constrainAs(cantonRef) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    // Usamos porcentajes exactos para mantener la proporción de la bandera
+                    width = Dimension.percent(0.4f)
+                    height = Dimension.percent(0.54f)
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.45f) // 1. Aumentamos un poco el ancho del cuadro azul
+                    .fillMaxHeight(0.58f) // 2. Aumentamos un poco el alto del cuadro azul
+                    .background(Color(0xFF3C3B6E)),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(2.dp), // 3. Reducimos el padding interno para aprovechar todo el espacio
+                    verticalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    repeat(9) { rowIndex ->
+                        val numStars = if (rowIndex % 2 == 0) 6 else 5
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            repeat(numStars) {
+                                Icon(
+                                    imageVector = Icons.Default.Star,
+                                    contentDescription = "Estrella",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(20.dp) // 4. Un tamaño intermedio (ej. 13.dp o 14.dp) que sí alcance a lucir
+                                )
+                            }
+                        }
+                    }
+                }
+            }        }
     }
 }

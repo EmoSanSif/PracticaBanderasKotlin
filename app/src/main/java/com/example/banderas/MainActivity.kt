@@ -45,38 +45,22 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
+        val (BackGround, ImgBox) = createRefs()
         val topGuide = createGuidelineFromTop(0.2f)
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(BackGround) {
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
+        Box(modifier = Modifier.size(140.dp).clip(CircleShape).background(Color.Red).constrainAs(ImgBox) {
+            top.linkTo(BackGround.top)
+            bottom.linkTo(BackGround.bottom)
+            start.linkTo(BackGround.start)
+            end.linkTo(BackGround.end)
         })
     }
 }

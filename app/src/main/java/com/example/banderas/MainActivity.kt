@@ -19,6 +19,7 @@ import androidx.core.view.WindowCompat.enableEdgeToEdge
 import com.example.banderas.ui.theme.BanderasTheme
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Canvas
 
 
 class MainActivity : ComponentActivity() {
@@ -34,15 +35,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@Composable
-fun BanderaNombrePais(modifier: Modifier = Modifier) {
-    // Aqui va el Row/Column/Box con las franjas o formas
-}
 
-@Preview(showBackground = true)
-@Composable
-fun BanderaNombrePaisPreview() {
-    Surface {
-        BanderaNombrePais(modifier = Modifier.fillMaxSize())
-    }
-}
+

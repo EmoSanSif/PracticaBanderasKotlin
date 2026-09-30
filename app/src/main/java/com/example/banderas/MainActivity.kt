@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BanderasTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaNombrePais(Modifier.padding(innerPadding))
+                    BanderaIsrael(Modifier.padding(innerPadding))
                 }
             }
         }

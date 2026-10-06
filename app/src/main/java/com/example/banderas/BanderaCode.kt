@@ -16,20 +16,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
-fun BanderaSuiza(modifier: Modifier = Modifier) {
+fun BanderaPapuaNuevaGuinea(modifier: Modifier = Modifier) {
+    // Contenedor principal con ConstraintLayout para fijar la proporción de la bandera
     ConstraintLayout(
         modifier = modifier
-            .aspectRatio(1f)
-            .background(Color(0xFFD52B1E))
+            .fillMaxWidth()
+            .aspectRatio(1.33f) // Proporción oficial 4:3
     ) {
-        val (cruzRef) = createRefs()
+        // Creamos las referencias para los elementos del ConstraintLayout
+        val (canvasRef, aveRef) = createRefs()
 
+        // 1. Lienzo para los triángulos de fondo y las estrellas
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .constrainAs(cruzRef) {
+                .constrainAs(canvasRef) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
@@ -38,23 +47,52 @@ fun BanderaSuiza(modifier: Modifier = Modifier) {
         ) {
             val width = size.width
             val height = size.height
-            val centroX = width / 2f
-            val centroY = height / 2f
 
-            val grosorPalo = width * 0.2f
-            val largoPalo = height * 0.62f
+            // Triángulo inferior izquierdo (Negro)
+            val pathNegro = Path().apply {
+                moveTo(0f, 0f)
+                lineTo(0f, height)
+                lineTo(width, height)
+                close()
+            }
+            drawPath(pathNegro, Color.Black)
 
-            drawRect(
-                color = Color.White,
-                topLeft = Offset(centroX - (grosorPalo / 2f), centroY - (largoPalo / 2f)),
-                size = Size(grosorPalo, largoPalo)
-            )
+            // Triángulo superior derecho (Rojo)
+            val pathRojo = Path().apply {
+                moveTo(0f, 0f)
+                lineTo(width, 0f)
+                lineTo(width, height)
+                close()
+            }
+            drawPath(pathRojo, Color(0xFFCE1126)) // Rojo oficial
 
-            drawRect(
-                color = Color.White,
-                topLeft = Offset(centroX - (largoPalo / 2f), centroY - (grosorPalo / 2f)),
-                size = Size(largoPalo, grosorPalo)
-            )
+            // Función interna para dibujar cada estrella de la Cruz del Sur
+            fun dibujarEstrella(centro: Offset, radioExt: Float, radioInt: Float, color: Color) {
+                val starPath = Path().apply {
+                    for (i in 0 until 10) {
+                        val r = if (i % 2 == 0) radioExt else radioInt
+                        val angle = Math.PI * i / 5.0 - Math.PI / 2.0
+                        val x = centro.x + (r * cos(angle)).toFloat()
+                        val y = centro.y + (r * sin(angle)).toFloat()
+                        if (i == 0) moveTo(x, y) else lineTo(x, y)
+                    }
+                    close()
+                }
+                drawPath(starPath, color)
+            }
+
+            // Radios para las estrellas grandes y la pequeña de la constelación
+            val rExtG = height * 0.08f
+            val rIntG = rExtG * 0.4f
+            val rExtP = height * 0.05f
+            val rIntP = rExtP * 0.4f
+
+            // Coordenadas de la Cruz del Sur en el triángulo negro
+            dibujarEstrella(Offset(width * 0.25f, height * 0.20f), rExtG, rIntG, Color.White) // Superior
+            dibujarEstrella(Offset(width * 0.25f, height * 0.75f), rExtG, rIntG, Color.White) // Inferior
+            dibujarEstrella(Offset(width * 0.10f, height * 0.45f), rExtG, rIntG, Color.White) // Izquierda
+            dibujarEstrella(Offset(width * 0.40f, height * 0.40f), rExtG, rIntG, Color.White) // Derecha
+            dibujarEstrella(Offset(width * 0.33f, height * 0.60f), rExtP, rIntP, Color.White) // Pequeña central
         }
     }
 }
@@ -62,6 +100,6 @@ fun BanderaSuiza(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaSuizaPreview() {
-    Surface { BanderaSuiza(modifier = Modifier.fillMaxSize()) }
+fun BanderaPapuaNuevaGuineaPreview() {
+    Surface { BanderaPapuaNuevaGuinea(modifier = Modifier.fillMaxSize()) }
 }

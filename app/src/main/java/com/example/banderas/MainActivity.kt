@@ -45,38 +45,29 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BoxConstraint() {
     ConstraintLayout(Modifier.fillMaxSize()) {
-        val (Izqcolumn, Cencolumn, Dercolumn, ImgBox) = createRefs()
-        val topGuide = createGuidelineFromTop(0.2f)
+        val (topPixel, Cencolumn, Dercolumn) = createRefs()
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_mexico)).constrainAs(Izqcolumn) {
+        // Los pixeles de la dimension de start to end son en aumento de 0.0285f
+        val StartPixel2 = createGuidelineFromStart(0.0285f)
+        val StartPixel3 = createGuidelineFromStart(0.057f)
+        val StartPixel4 = createGuidelineFromStart(0.0855f)
+
+        // Los pixeles de la dimension top to bottom aumentan en .02f
+        val TopPixel = createGuidelineFromTop(0.25f)
+        val TopPixel1 = createGuidelineFromTop(0.27f)
+        val TopPixel2 = createGuidelineFromTop(0.29f)
+        val BottomPixel = createGuidelineFromTop(0.75f)
+
+
+        Box(modifier = Modifier.background(colorResource(id = R.color.verde_mexico)).constrainAs(topPixel) {
             top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
+            bottom.linkTo(StartPixel2)
             start.linkTo(parent.start)
-            end.linkTo(Cencolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(Cencolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Izqcolumn.end)
-            end.linkTo(Dercolumn.start)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.rojo_mexico)).constrainAs(Dercolumn) {
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(Cencolumn.end)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(80.dp).clip(CircleShape).background(colorResource(id = R.color.cafe)).constrainAs(ImgBox) {
-            top.linkTo(Cencolumn.top)
-            bottom.linkTo(Cencolumn.bottom)
-            start.linkTo(Cencolumn.start)
-            end.linkTo(Cencolumn.end)
-        })
+
+
     }
 }
